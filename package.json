@@ -1,0 +1,77 @@
+{
+  "name": "react-javascript-sample",
+  "version": "1.0.0",
+  "description": "A sample React application that demonstrates the Azure AD react component.",
+  "private": true,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/syncweek-react-aad/react-aad.git"
+  },
+  "author": "Laura Bochenek",
+  "contributors": [
+    "Laura Bochenek <laura.bochenek@microsoft.com>",
+    "Omeed Musavi <omusavi@microsoft.com>",
+    "Lilian Kasem <lilian.kasem@microsoft.com>",
+    "Tess DiStefano <tedistef@microsoft.com>",
+    "Lucas Huet-Hudson <lucashh@microsoft.com>",
+    "Zach Miller <zamiller@microsoft.com>",
+    "P.J. Little <pj.little@microsoft.com>",
+    "Shawn Cicoria <shawn.cicoria@microsoft.com>",
+    "Andrew Craswell <andcra@microsoft.com>",
+    "Björn Dalfors <bjorn@binovi.se>"
+  ],
+  "dependencies": {
+    "@progress/kendo-data-query": "^1.5.6",
+    "@progress/kendo-drawing": "^1.16.3",
+    "@progress/kendo-licensing": "^1.2.2",
+    "@progress/kendo-react-animation": "^5.3.0",
+    "@progress/kendo-react-buttons": "^5.3.0",
+    "@progress/kendo-react-data-tools": "^5.3.0",
+    "@progress/kendo-react-dateinputs": "^5.3.0",
+    "@progress/kendo-react-dropdowns": "^5.3.0",
+    "@progress/kendo-react-grid": "^5.3.0",
+    "@progress/kendo-react-inputs": "^5.3.0",
+    "@progress/kendo-react-intl": "^5.3.0",
+    "@progress/kendo-react-popup": "^5.3.0",
+    "@progress/kendo-react-treeview": "^5.3.0",
+    "@progress/kendo-theme-default": "^5.4.1",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "axios": "^0.27.2",
+    "msal": "^1.3.3",
+    "react": "^16.12.0",
+    "react-aad-msal": "^2.3.2",
+    "react-dom": "^16.12.0",
+    "react-redux": "^7.1.3",
+    "react-scripts": "3.4.0",
+    "redux": "^4.0.5"
+  },
+  "devDependencies": {
+    "rimraf": "^3.0.0"
+  },
+  "scripts": {
+    "clean": "rimraf build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not ie < 11",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
