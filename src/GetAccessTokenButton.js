@@ -101,6 +101,55 @@ const GetTokenButton = ({ provider }) => {
     setEditor(false)
 
   }
+
+  const generateId = dataspo => dataspo.reduce((acc, current) => Math.max(acc, current.id), 0) + 1;
+
+  const insertItem = item => {
+    item.id = generateId(dataspo);
+    item.inEdit = false;
+    dataspo.unshift(item);
+    return dataspo;
+  };
+  const getItems = () => {
+    return dataspo;
+  };
+  const updateItem = async item => {
+    let index = dataspo.findIndex(record => record.id === item.id);
+    dataspo[index] = item;
+    // return dataspo;
+    await axios({
+      method: "patch",
+      url: `https://graph.microsoft.com/v1.0/sites/${siteId}/lists/${listId}/items/${item.id}/fields`,
+      headers: {
+        Authorization: "Bearer " + actoken,
+        Accept: '*/*'
+      },
+      data: {
+
+        "Title": item.Title,
+        "Description": item.Description,
+        "Category": item.Category,
+        "Price": item.Price
+
+      }
+    }).then(response => {
+      console.log(response)
+    }).catch(error => {
+      console.log(error.response)
+    })
+
+
+
+  };
+  const deleteItem = item => {
+    let index = dataspo.findIndex(record => record.id === item.id);
+    dataspo.splice(index, 1);
+    return dataspo;
+  };
+
+
+
+
   return (
     <div style={{ margin: '40px 0' }}>
 
@@ -156,7 +205,14 @@ const GetTokenButton = ({ provider }) => {
           Callback={callbackFunction}
           actoken={actoken}
         />}
-      <ProducList dataspo={dataspo} />
+      {/* <ProducList dataspo={dataspo} actoken={actoken} /> */}
+      <ProducList
+        getItems={getItems}
+        updateItem={updateItem}
+        deleteItem={deleteItem}
+        insertItem={insertItem}
+        actoken={actoken} />
+
     </div>
   );
 }
