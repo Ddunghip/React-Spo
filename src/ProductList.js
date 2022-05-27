@@ -22,6 +22,11 @@ const ProductList = (props) => {
     const actoken = props.actoken
     const [showedit, setShowedit] = useState(true)
     const handleShowedit = () => setShowedit(true);
+    const [showadd, setShowadd] = useState(true)
+    const handleShowadd = () => setShowadd(true);
+    const [showupdate, setShowupdate] = useState(false);
+    const handleShowUpdate = () => setShowupdate(true)
+
 
 
     useEffect(() => {
@@ -31,19 +36,15 @@ const ProductList = (props) => {
         setData(newItems);
     }, [props]);
 
-    const update = (dataItem) => {
-        dataItem.inEdit = false;
-        const newData = props.updateItem(dataItem);
-        setData(newData);
-    };
     const enterEdit = dataItem => {
-        setShowedit(false)
+
         setData(data.map(item => item.id === dataItem.id ? {
             ...item,
             inEdit: true
         } : item))
     };
     const cancel = (dataItem) => {
+        setShowedit(true)
         const originalItem = props.getItems().find((p) => p.id === dataItem.id);
 
         const newData = data.map((item) =>
@@ -53,18 +54,44 @@ const ProductList = (props) => {
     };
 
 
-    const add = (dataItem) => {
+    const add = async (dataItem) => {
         dataItem.inEdit = true;
+        console.log('check add dataItem', dataItem);
         const newData = props.insertItem(dataItem);
         setData(newData);
+
+        await axios({
+            method: "post",
+            url: `https://graph.microsoft.com/v1.0/sites/${siteId}/lists/${listId}/items`,
+            headers: {
+                Authorization: "Bearer " + props.actoken,
+                Accept: '*/*'
+            },
+            data: {
+                "fields": {
+                    "Title": dataItem.Title,
+                    "Description": dataItem.Description,
+                    "Category": dataItem.Category,
+                    "Price": dataItem.Price
+                }
+
+            }
+        }).then(response => {
+            console.log(response.data.value)
+        })
+            .catch(error => {
+                console.log(error.response)
+            })
     };
 
     const discard = () => {
+
         const newData = [...data];
         newData.splice(0, 1);
         setData(newData);
     };
     const addNew = () => {
+
         const newDataItem = {
             inEdit: true,
             Discontinued: false,
@@ -89,11 +116,14 @@ const ProductList = (props) => {
             editField={editField}
             cancel={cancel}
             actoken={actoken}
-            update={update}
             add={add}
             discard={discard}
-            showedit={showedit}
-            handleShowedit={handleShowedit}
+        // showedit={showedit}
+        // handleShowedit={handleShowedit}
+        // showadd={showadd}
+        // handleShowadd={handleShowadd}
+        // showupdate={showupdate}
+        // handleShowUpdate={handleShowUpdate}
         />
     )
 

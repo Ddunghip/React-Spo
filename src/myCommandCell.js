@@ -11,18 +11,14 @@ export const MyCommandCell = (props) => {
     const inEdit = dataItem[props.editField];
     console.log('check InEdit', inEdit);
     const isNewItem = dataItem.id === undefined;
+    const [showedit, setShowedit] = useState(true);
+
 
     const update = async item => {
-        props.handleShowedit()
+        setShowedit(false)
         item.inEdit = false;
-        console.log('check dataitem in edit', item);
+        console.log('check dataitem in update', item);
 
-
-
-        // const newData = 
-        // updateItem(dataItem);
-
-        // setData(newData);
         let index = [dataItem].findIndex(record => record.id === item.id);
         dataItem[index] = item;
         console.log('check 1 item ', item);
@@ -52,41 +48,41 @@ export const MyCommandCell = (props) => {
     };
 
 
-    return (
-        props.showedit === true && (
-            <td className="k-command-cell">
-                <button
-                    className="k-button k-button-md k-rounded-md k-button-solid k-button-solid-primary k-grid-edit-command"
-                    onClick={() => props.edit(dataItem)}
-                >
-                    Edit
-                </button>
-                <button
-                    className="k-button k-button-md k-rounded-md k-button-solid k-button-solid-base k-grid-remove-command"
+    return inEdit ? (
+        <td className="k-command-cell">
+            <button
+                className="k-button k-button-md k-rounded-md k-button-solid k-button-solid-base k-grid-save-command"
+                onClick={() =>
+                    isNewItem ? props.add(dataItem) : update(dataItem)
+                }
+            >
+                {isNewItem ? "Add" : "Update"}
+            </button>
+            <button
+                className="k-button k-button-md k-rounded-md k-button-solid k-button-solid-base k-grid-cancel-command"
+                onClick={() =>
+                    isNewItem ? props.discard(dataItem) : props.cancel(dataItem)
+                }
+            >
+                {isNewItem ? "Discard" : "Cancel"}
+            </button>
+        </td>
+    ) : (
+        <td className="k-command-cell">
+            <button
+                className="k-button k-button-md k-rounded-md k-button-solid k-button-solid-primary k-grid-edit-command"
+                onClick={() => props.edit(dataItem)}
+            >
+                Edit
+            </button>
+            <button
+                className="k-button k-button-md k-rounded-md k-button-solid k-button-solid-base k-grid-remove-command"
 
-                >
-                    Remove
-                </button>
-            </td>
-        ) ||
-        props.showedit === false && (
-            <td className="k-command-cell">
-                <button
-                    className="k-button k-button-md k-rounded-md k-button-solid k-button-solid-base k-grid-save-command"
-                    onClick={() => update(dataItem)}
-                >
-                    Update
-                </button>
-                <button
-                    className="k-button k-button-md k-rounded-md k-button-solid k-button-solid-base k-grid-cancel-command"
-                    onClick={() => props.cancel(dataItem)
-                    }
-                >
-                    Cancel
-                </button>
-            </td>
-        )
-    )
+            >
+                Remove
+            </button>
+        </td>
+    );
 };
 
 // inEdit ? (
@@ -124,3 +120,38 @@ export const MyCommandCell = (props) => {
 //         </button>
 //     </td>
 // );
+
+// (
+//     props.showedit === true && (
+//         <td className="k-command-cell">
+//             <button
+//                 className="k-button k-button-md k-rounded-md k-button-solid k-button-solid-primary k-grid-edit-command"
+//                 onClick={() => props.edit(dataItem)}
+//             >
+//                 Edit
+//             </button>
+//             <button
+//                 className="k-button k-button-md k-rounded-md k-button-solid k-button-solid-base k-grid-remove-command"
+
+//             >
+//                 Remove
+//             </button>
+//         </td>
+//     ) ||
+//     props.showedit === false && (
+//         <td className="k-command-cell">
+//             <button
+//                 className="k-button k-button-md k-rounded-md k-button-solid k-button-solid-base k-grid-save-command"
+//                 onClick={() => update(dataItem)}
+//             >
+//                 Update
+//             </button>
+//             <button
+//                 className="k-button k-button-md k-rounded-md k-button-solid k-button-solid-base k-grid-cancel-command"
+//                 onClick={() => props.cancel(dataItem)}
+//             >
+//                 Cancel
+//             </button>
+//         </td>
+//     )
+// )
