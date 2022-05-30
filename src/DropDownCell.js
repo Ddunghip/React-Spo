@@ -12,6 +12,10 @@ export const DropDownCell = props => {
     }, {
         text: 'Running',
         value: 'Running'
+    },
+    {
+        text: 'Waterports',
+        value: 'Watersports'
     }];
 
     const handleChange = e => {
