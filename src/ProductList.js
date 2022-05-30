@@ -4,11 +4,13 @@ import axios from "axios";
 import {
     Grid,
     GridColumn,
-    GridToolbar,
+    GridToolbar
 } from "@progress/kendo-react-grid";
 import { MyCommandCell } from "./myCommandCell";
 import { useState, useEffect } from "react";
 import { Button } from '@progress/kendo-react-buttons';
+import { DropDownList } from "@progress/kendo-react-dropdowns";
+import { DropDownCell } from "./DropDownCell";
 
 import '@progress/kendo-theme-default/dist/all.css';
 
@@ -18,14 +20,18 @@ const listId = 'b5b7a913-41bb-4c24-bc7e-7af15a7f4c8b';
 const editField = "inEdit";
 
 const ProductList = (props) => {
+    const sports = ["Basketball", "Football", "Tennis", "Volleyball"];
+
     const [data, setData] = useState([]);
-    const actoken = props.actoken
+    const actoken = props.actoken;
+
     const [showedit, setShowedit] = useState(true)
     const handleShowedit = () => setShowedit(true);
     const [showadd, setShowadd] = useState(true)
     const handleShowadd = () => setShowadd(true);
     const [showupdate, setShowupdate] = useState(false);
     const handleShowUpdate = () => setShowupdate(true)
+    const [dataDD, setDataDD] = useState('');
 
 
 
@@ -53,6 +59,9 @@ const ProductList = (props) => {
         setData(newData);
     };
 
+    const handleChangeDD = (data) => {
+        setDataDD(data)
+    }
 
     const add = async (dataItem) => {
         dataItem.inEdit = true;
@@ -118,12 +127,12 @@ const ProductList = (props) => {
             actoken={actoken}
             add={add}
             discard={discard}
-        // showedit={showedit}
-        // handleShowedit={handleShowedit}
-        // showadd={showadd}
-        // handleShowadd={handleShowadd}
-        // showupdate={showupdate}
-        // handleShowUpdate={handleShowUpdate}
+
+        />
+    )
+    const Dropdown = () => (
+        <DropDownCell
+        // handleChangeDD={handleChangeDD}
         />
     )
 
@@ -153,12 +162,14 @@ const ProductList = (props) => {
                     </button>
                 </GridToolbar>
                 <GridColumn field="id" title="ID" />
-                <GridColumn field="Category" title='Category' />
                 <GridColumn field="Title" title="Title" format="{0:c}" />
+                <GridColumn field="Category" title='Category' cell={DropDownCell} />
                 <GridColumn field="Description" title="Description" />
                 <GridColumn field="Price" title='Price' />
                 <GridColumn cell={CommandCell} width="200px" />
+
             </Grid>
+
             <Button>Click here</Button>
 
 
