@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { DropDownList } from '@progress/kendo-react-dropdowns';
+//ok
 export const DropDownCell = props => {
     console.log('check props dropdown', props.field.inEdit);
     const localizedData = [{
@@ -16,6 +17,10 @@ export const DropDownCell = props => {
     {
         text: 'Waterports',
         value: 'Watersports'
+    },
+    {
+        text: 'Test',
+        value: 'Test'
     }];
 
     const handleChange = e => {
